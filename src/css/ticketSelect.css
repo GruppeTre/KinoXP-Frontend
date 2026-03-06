@@ -1,0 +1,132 @@
+:root {
+    --seat-size: 30px;
+    --seat-gap: 8px;
+    --color-available: #2ecc71;
+    --color-selected: #3498db;
+    --color-occupied: #e74c3c;
+    --color-text: #333;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+
+/* Controls */
+.controls {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+button {
+    padding: 5px 15px;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+#ticket-count {
+    font-size: 1.2rem;
+    font-weight: bold;
+    width: 30px;
+    text-align: center;
+}
+
+/* Theater Layout */
+.theater-container {
+    perspective: 1000px;
+    margin-bottom: 30px;
+}
+
+.screen {
+    background-color: #333;
+    height: 60px;
+    width: 100%;
+    margin-bottom: 30px;
+    transform: rotateX(-10deg);
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.seat-row {
+    display: flex;
+    justify-content: center;
+    gap: var(--seat-gap);
+    margin-bottom: var(--seat-gap);
+}
+
+.seat {
+    width: var(--seat-size);
+    height: var(--seat-size);
+    background-color: #ccc;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.seat:not(.occupied):hover {
+    transform: scale(1.1);
+}
+
+.seat.available {
+    background-color: var(--color-available);
+}
+
+.seat.selected {
+    background-color: var(--color-selected);
+    box-shadow: 0 0 10px var(--color-selected);
+}
+
+.seat.occupied {
+    background-color: var(--color-occupied);
+    cursor: not-allowed;
+}
+
+/* Legend */
+.legend {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.legend-box {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+}
+
+.legend-box.available { background: var(--color-available); }
+.legend-box.selected { background: var(--color-selected); }
+.legend-box.occupied { background: var(--color-occupied); }
+
+/* Output */
+#json-output {
+    width: 100%;
+    max-width: 600px;
+    height: 100px;
+    font-family: monospace;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
