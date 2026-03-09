@@ -16,6 +16,7 @@ let ticketCount = 2;
 //DOM elements
 const theaterGridEl = document.getElementById('theater-grid');
 const ticketCounterEl = document.getElementById('ticket-count');
+const debugOutputEl = document.getElementById('json-output');
 
 async function renderTheater() {
 
@@ -71,10 +72,15 @@ function handleSeatSelection(rowIndex, seatIndex) {
         selection.seats = newBlock;
         selection.rowIndex = rowIndex;
         selection.seatIndex = seatIndex;
+        updateDebugOutput();
         renderTheater();
     } else {
         console.log('Selection blocked by inoperable seat or row boundaries.');
     }
+}
+
+function updateDebugOutput() {
+    debugOutputEl.value = JSON.stringify(selection.seats, null, 4);
 }
 
 
@@ -85,6 +91,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         theaterRows = theater.rows;
     } catch (error) {
         console.error('Failed to fetch theater data:', error);
+        alert('Something went wrong, please try again later!');
         return;
     }
 
@@ -107,6 +114,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Initial Render
     selection = findInitialSeats(theaterRows, ticketCount);
+    updateDebugOutput();
     await renderTheater();
 });
 
