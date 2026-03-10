@@ -18,7 +18,7 @@ const theaterGridEl = document.getElementById('theater-grid');
 const ticketCounterEl = document.getElementById('ticket-count');
 const debugOutputEl = document.getElementById('json-output');
 
-async function renderTheater() {
+function renderTheater() {
 
     theaterGridEl.innerHTML = '';
 
@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const theater = await apiRequest(endpoint);
         theaterRows = theater.rows;
     } catch (error) {
-        console.error('Failed to fetch theater data:', error);
+        console.error(`Failed to fetch theater data:`, error);
         alert('Something went wrong, please try again later!');
         return;
     }
