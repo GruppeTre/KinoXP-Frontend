@@ -20,7 +20,7 @@ async function getSpecificMovie(){
 
     const params = new URLSearchParams(window.location.search); //Vi læser det der står i browserens URL efter ?
     const movieId = params.get("id"); //derefter finder vi id på den film vi har vælgt,
-    const url = "http://localhost:8080/movie/showmovie/" + movieId;
+    const url = "http://localhost:8080/movie/" + movieId;
 
     movie = await apiRequest(url); //Vi henter apiRequest hvor filmene bliver kaldt fra backend
 
