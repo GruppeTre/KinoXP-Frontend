@@ -31,9 +31,9 @@ function renderTheater() {
             const seatEl = document.createElement('div');
             seatEl.classList.add('seat');
 
-            //set seat to occupied/available
+            //check if seat is reserved/out of order
             if (seat.inoperable) {
-                seatEl.classList.add('inoperable');
+                seatEl.classList.add('unavailable');
             }
 
             //check if seat is selected
@@ -74,8 +74,10 @@ function handleSeatSelection(rowIndex, seatIndex) {
         selection.seatIndex = seatIndex;
         updateDebugOutput();
         renderTheater();
+        return true;
     } else {
         console.log('Selection blocked by inoperable seat or row boundaries.');
+        return false;
     }
 }
 
@@ -98,9 +100,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Init Controls
     document.getElementById('btn-plus').addEventListener('click', () => {
         if (ticketCount < MAX_ALLOWED_TICKETS) {
+
             ticketCount++;
-            ticketCounterEl.innerText = ticketCount;
-            handleSeatSelection(selection.rowIndex, selection.seatIndex);
+
+            if (handleSeatSelection(selection.rowIndex, selection.seatIndex)) {
+                ticketCounterEl.innerText = ticketCount;
+            } else {
+                ticketCount--;
+            }
         }
     });
 
@@ -115,7 +122,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Initial Render
     selection = findInitialSeats(theaterRows, ticketCount);
     updateDebugOutput();
-    await renderTheater();
+    renderTheater();
 });
 
 
