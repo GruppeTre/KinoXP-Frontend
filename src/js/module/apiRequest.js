@@ -14,8 +14,8 @@ export async function apiRequest(url, method = 'GET', data = null) {
     if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
     }
-    if (response.status !== 204) { // No Content
-        return await response.json();
+    if (response.status === 204) { // No Content
+        return null;
     }
     return response.json();
 }
