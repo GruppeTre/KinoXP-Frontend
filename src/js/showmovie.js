@@ -5,10 +5,12 @@ console.log("jeg er i show-movie")
 let movie;
 let showings;
 
-const movieTitel = document.getElementById("movieTitle");
+const movieTitle = document.getElementById("movieTitle");
 const movieDescription = document.getElementById("movieDescription");
 const movieDirector = document.getElementById("movieDirector");
 const moviePremiere = document.getElementById("moviePremiere");
+const movieRating = document.getElementById("movieRating");
+const movieGenre = document.getElementById("movieGenre");
 
 const showingList = document.getElementById("showingList");
 
@@ -16,58 +18,115 @@ const showingList = document.getElementById("showingList");
 
 
 
-async function getSpecificMovie(){
+async function fetchMovieById(){
+    console.log("starter getSpecificMovie");
 
-    const params = new URLSearchParams(window.location.search); //Vi læser det der står i browserens URL efter ?
-    const movieId = params.get("id"); //derefter finder vi id på den film vi har vælgt,
+    const params = new URLSearchParams(window.location.search);
+    const movieId = params.get("id");
+
+    console.log("vi finder movieId"+ movieId );
+
     const url = "http://localhost:8080/movie/" + movieId;
 
-    movie = await apiRequest(url); //Vi henter apiRequest hvor filmene bliver kaldt fra backend
+    console.log("vi kalder backend url" + url);
+
+
+
+    movie = await apiRequest(url);
+
+    console.log("vi henter movie" , movie);
 
     showMovie();
-    getShowingTime(movieId);
+    fetchShowingByMovieId(movieId);
 }
 
-function showMovie() {
-    movieTitel.textContent = movie.title;
-    movieDescription.textContent = movie.description;
-    movieDirector.textContent = movie.director;
-    moviePremiere.textContent = movie.premiere;
-}
+/**/
 
-/* Vi henter specifikke showings (tidspunkter) til den specifikke film */
+async function fetchShowingByMovieId(movieId){
 
-async function getShowingTime(movieId){
+    const url = "http://localhost:8080/booking/showing?movieId=" + movieId;
 
-    const url = "http://localhost:8080/movie/" + movieId + "/showings";
+    console.log("vi finder url" + url );
 
     showings = await apiRequest(url);
 
-    showShowing()
+    console.log("vi henter showings", showings);
+
+    showShowings()
 }
 
-function showShowing(){
+
+function showMovie() {
+
+    console.log("Vi viser showMovie");
+
+    movieTitle.textContent = movie.title;
+    movieDescription.textContent = movie.description;
+    movieDirector.textContent = movie.director;
+    moviePremiere.textContent = movie.premiere;
+    movieRating.textContent = movie.rating.name;
+
+    if(movie.genres){
+        movieGenre.textContent = movie.genres.map(function(genre){
+            return genre.name;
+        }).join(", ")
+    }
+}
+
+
+
+function showShowings(){
+
+    console.log("viser showing");
 
     showingList.innerHTML = "";
+    let lastDate = "";
+    let dateColumn;
+
+    showings.sort(function(a,b){
+        return new Date(a.time) - new Date(b.time);
+    })
+
+    showingList.classList.add("showing-grid");
 
     showings.forEach(function(showing){
 
+        const dateTime = showing.time.split("T");
+        const date = dateTime[0];
+        const time = dateTime[1].substring(0, 5);
+
+        if(date !== lastDate){
+            dateColumn = document.createElement("div");
+
+            const dateHeader = document.createElement("h3");
+            dateHeader.textContent = date;
+            dateColumn.appendChild(dateHeader);
+            dateColumn.classList.add("date-column"); //skal bruges senere til styling, så vi kan sætte datoerne horisontalt
+            showingList.appendChild(dateColumn);
+
+            lastDate = date;
+        }
+
+        console.log("viser showing", showing);
+
         const showingButton = document.createElement("button");
 
-        showingButton.textContent = showing.time;
+        showingButton.textContent = time;
 
         showingButton.addEventListener("click", function(){
             actionChooseShowing(showing.id);
 
         })
-        showingList.appendChild(showingButton);
+        dateColumn.appendChild(showingButton);
     })
+}
 
-    function actionChooseShowing(showingId){
-        console.log(showingId);
-    }
+function actionChooseShowing(showingId) {
+        console.log("du klikkede på showing id" + showingId);
+
+        //windows.location.href "siden der skal linkes" html?showingId=" + showingId;
 
 }
-getSpecificMovie()
+fetchMovieById();
 
 
