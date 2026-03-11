@@ -79,7 +79,7 @@ button {
     transition: transform 0.1s;
 }
 
-.seat:not(.occupied):hover {
+.seat:not(.unavailable):hover {
     transform: scale(1.1);
 }
 

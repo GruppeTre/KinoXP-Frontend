@@ -1,6 +1,6 @@
 
 
-export function findInitialSeats(theaterRows, ticketCount) {
+export function findInitialSeats(theaterRows, ticketCount, reservedSeats = []) {
     //iterate through the rows
     for (let i = 0; i < theaterRows.length; i++) {
         const row = theaterRows[i];
@@ -8,7 +8,7 @@ export function findInitialSeats(theaterRows, ticketCount) {
 
         //iterate through seats
         for (let j = 0; j < seats.length; j++) {
-            let candidate = getManualBlock(seats, j, ticketCount);
+            let candidate = getManualBlock(seats, j, ticketCount, reservedSeats);
 
             if (candidate) {
                 return {
@@ -25,7 +25,7 @@ export function findInitialSeats(theaterRows, ticketCount) {
 }
 
 //find block of valid seats where user clicked
-export function getManualBlock(rowSeats, startIndex, ticketCount) {
+export function getManualBlock(rowSeats, startIndex, ticketCount, reservedSeats = []) {
 
     //if the user tries to book more seats than there are in the row, return null
     if (startIndex + ticketCount > rowSeats.length) {
@@ -37,7 +37,7 @@ export function getManualBlock(rowSeats, startIndex, ticketCount) {
     const candidateBlock = rowSeats.slice(startIndex, startIndex + ticketCount);
 
     const isBlockValid = candidateBlock.every(
-        (seat) => seat.inoperable === false
+        (seat) => seat.inoperable === false && !reservedSeats.some(target => target.id === seat.id)
     );
 
     return isBlockValid ? candidateBlock : null;
