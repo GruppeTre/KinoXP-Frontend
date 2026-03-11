@@ -5,6 +5,7 @@ console.log("jeg er i show-movie")
 let movie;
 let showings;
 
+const moviePoster = document.getElementById("moviePoster");
 const movieTitle = document.getElementById("movieTitle");
 const movieDescription = document.getElementById("movieDescription");
 const movieDirector = document.getElementById("movieDirector");
@@ -37,7 +38,7 @@ async function fetchMovieById(){
     console.log("vi henter movie" , movie);
 
     showMovie();
-    fetchShowingByMovieId(movieId);
+    await fetchShowingByMovieId(movieId);
 }
 
 /**/
@@ -65,6 +66,9 @@ function showMovie() {
     movieDirector.textContent = movie.director;
     moviePremiere.textContent = movie.premiere;
     movieRating.textContent = movie.rating.name;
+
+    moviePoster.src = movie.imgHref;
+    moviePoster.alt = movie.title + "Plakat"
 
     if(movie.genres){
         movieGenre.textContent = movie.genres.map(function(genre){
