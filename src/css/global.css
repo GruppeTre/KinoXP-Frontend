@@ -60,18 +60,14 @@ main {
     margin: 0 auto;
 }
 
-.movie-container {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    justify-content: center;
-    padding: 20px 20px;
-    background-color: var(--secondary-background-color);
-}
-
 h2 {
     color: var(--primary-accent);
 }
+
+h3 {
+    color: var(--primary-accent);
+}
+
 
 .movie-title {
     font-size: 1.5em;
@@ -89,4 +85,68 @@ h2 {
     --primary-accent: #D36746;
     --secondary-accent: #F4A261;
     --text-color: #FAF9F6;
+}
+
+.day-selector {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.day-selector button {
+    padding: 6px 12px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #f2f2f2;
+    cursor: pointer;
+}
+
+.day-selector button.selected {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.movie-container {
+    display: flex;
+    align-items: flex-start; /* tekst og billede starter fra toppen */
+    gap: 20px; /* afstand mellem billede og tekst */
+    margin-bottom: 40px;
+}
+
+.movie-image {
+    flex: 0 0 40%; /* billede fylder 40% af containeren */
+}
+
+.movie-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.movie-info {
+    flex: 1; /* fylder resten af pladsen */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.showings {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.showings a {
+    text-decoration: none;
+    background-color: #eee;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #333;
+}
+
+.showings a:hover {
+    background-color: #ccc;
 }
