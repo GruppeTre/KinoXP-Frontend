@@ -6,40 +6,53 @@
     <link rel="stylesheet" href="css/global.css">
 </head>
 <body>
-<section>
-    <div>
-       <img id="moviePoster" src="" alt="Plakat">
-    </div>
+<header class="page-header">
+    <a href="index.html" class="logo-link"> Kino XP</a>
+</header>
+<main>
 
-    <div>
-        <h2 id="movieTitle"></h2>
-    </div>
-    <p>
-        <span>Premiere:</span>
-        <span id="moviePremiere"></span>
-    </p>
-    <p>
-        <span>Information om filmen:</span>
-        <span id="movieDescription"></span>
-    </p>
-    <p>
-        <span>Indstruktør:</span>
-        <span id="movieDirector"></span>
-    </p>
-    <p>
-        <span>Rating:</span>
-        <span id="movieRating"></span>
-    </p>
-    <p>
-        <span>Genre:</span>
-        <span id="movieGenre"></span>
-    </p>
-</section>
+    <section class="movie-container">
 
-<section>
-    <h2>Forestillinger</h2>
-    <div id="showingList"></div>
-</section>
+        <div class="movie-image">
+            <img id="moviePoster" src="" alt="Plakat">
+        </div>
+
+        <div class="movie-info">
+            <h2 id="movieTitle"></h2>
+
+            <p>
+                <strong>Instruktør:</strong>
+                <span id="movieDirector"></span>
+            </p>
+
+            <p>
+                <strong>Premiere:</strong>
+                <span id="moviePremiere"></span>
+            </p>
+
+            <p>
+                <strong>Information om filmen:</strong>
+                <span id="movieDescription"></span>
+            </p>
+
+            <p>
+                <strong>Rating:</strong>
+                <span id="movieRating"></span>
+            </p>
+
+            <p>
+                <strong>Genre:</strong>
+                <span id="movieGenre"></span>
+            </p>
+        </div>
+
+    </section>
+
+    <section>
+        <h2>Forestillinger</h2>
+        <div id="showingList"></div>
+    </section>
+</main>
 <script type="module" src="js/showmovie.js"></script>
 
 </body>
