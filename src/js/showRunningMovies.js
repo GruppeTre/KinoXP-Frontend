@@ -59,16 +59,23 @@ async function renderMoviesAndShowings(selectedDate = new Date()) {
             const filteredShowings = filterShowingsByDate(movieShowings, selectedDate);
 
             article.innerHTML = `
-                <h2>${movie.title}</h2>
-                <p>${movie.description}</p>
-                <p>${getGenreString(movie)}</p>
-                <p>Director: ${movie.director}</p>
-                <p>Aldersgrænse: ${movie.rating.name}</p>
-                <p>Premiere: ${new Date(movie.premiere).toLocaleDateString()}</p>
-                <a href="http://localhost:8080/movie/${movie.id}" target="_blank">
-                    <img src="${movie.imgHref}" alt="${movie.title}">
-                </a>
-                <div class="showings" id="showings-${movie.id}"></div>
+                <div class="movie-container">
+                    <div class="movie-image">
+                        <a href="http://localhost:8080/movie/${movie.id}" target="_blank">
+                            <img src="${movie.imgHref}" alt="${movie.title}">
+                        </a>
+                    </div>
+                    <div class="movie-info">
+                        <h2>${movie.title}</h2>
+                        <p>${movie.description}</p>
+                        <p>${getGenreString(movie)}</p>
+                        <p>Director: ${movie.director}</p>
+                        <p>Aldersgrænse: ${movie.rating.name}</p>
+                        <p>Premiere: ${new Date(movie.premiere).toLocaleDateString()}</p>
+                        <h3>Visninger</h3>
+                        <div class="showings" id="showings-${movie.id}"></div>
+                    </div>
+                </div>
             `;
 
             moviesSection.appendChild(article);
