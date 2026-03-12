@@ -122,4 +122,5 @@ function createDaySelector(showings, movies, selectedDate) {
     }
 }
 
-document.addEventListener("DOMContentLoaded", () => renderMoviesAndShowings());
+
+document.addEventListener("DOMContentLoaded", async() => await renderMoviesAndShowings());

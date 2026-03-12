@@ -1,42 +1,34 @@
 import { apiRequest } from "./module/apiRequest.js";
 
-const container = document.getElementById("edit-showing-container");
-
-// Hent showingId fra URL
-const params = new URLSearchParams(window.location.search);
-const showingId = params.get("showingId");
-
-if (showingId) {
-    loadShowing(showingId); // henter eksisterende visning
-} else {
-    showEditForm(); // viser tom opret-form
-}
-
-// Hent visning fra API
-async function loadShowing(id) {
-    try {
-        const showing = await apiRequest(`http://localhost:8080/booking/showing/${id}`);
-        showEditForm(showing);
-    } catch (error) {
-        console.error(error);
-        container.innerHTML = "<p>Kunne ikke hente visning.</p>";
-    }
-}
-
-// Vis redigerings-/opret-form
-export function showEditForm(showing = {}) {
+export async function showEditForm(showing = {}, container) {
     container.innerHTML = "";
 
+    const movies = await fetchMovies();
+    const theaters = await fetchTheaters();
+
     const form = document.createElement("form");
+
     form.innerHTML = `
         <h3>${showing.id ? "Rediger visning" : "Opret ny visning"}</h3>
         <label>
             Film:
-            <input type="text" name="movieTitle" value="${showing.movie?.name || ""}" required>
+            <select name="movieId" required>
+                ${movies.map(movie => `
+                    <option value="${movie.id}" ${showing.movie?.id === movie.id ? "selected" : ""}>
+                        ${movie.title}
+                    </option>
+                `).join("")}
+            </select>
         </label>
         <label>
             Sal:
-            <input type="text" name="theaterName" value="${showing.theater?.name || ""}" required>
+            <select name="theaterId" required>
+                ${theaters.map(theater => `
+                    <option value="${theater.id}" ${showing.theater?.id === theater.id ? "selected" : ""}>
+                        ${theater.name}
+                    </option>
+                `).join("")}
+            </select>
         </label>
         <label>
             Tidspunkt:
@@ -49,6 +41,7 @@ export function showEditForm(showing = {}) {
         <button type="submit">${showing.id ? "Opdater" : "Opret"}</button>
         <button type="button" id="cancel">Annuller</button>
     `;
+
     container.appendChild(form);
 
     // Cancel-knap
@@ -61,8 +54,8 @@ export function showEditForm(showing = {}) {
         e.preventDefault();
         const formData = new FormData(form);
         const data = {
-            movieId: parseInt(formData.get("movieId")),
-            theaterId: parseInt(formData.get("theaterId")),
+            movie: { id: parseInt(formData.get("movieId")) },
+            theater: { id: parseInt(formData.get("theaterId")) },
             time: formData.get("time"),
             price: parseFloat(formData.get("price"))
         };
@@ -81,4 +74,12 @@ export function showEditForm(showing = {}) {
             alert("Noget gik galt!");
         }
     });
+}
+
+async function fetchMovies() {
+    return await apiRequest("http://localhost:8080/movie"); // returnerer liste af Movie
+}
+
+async function fetchTheaters() {
+    return await apiRequest("http://localhost:8080/theater"); // returnerer liste af Theater
 }
