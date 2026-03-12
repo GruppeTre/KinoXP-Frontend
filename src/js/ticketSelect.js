@@ -1,10 +1,12 @@
 import {findInitialSeats, getManualBlock} from './module/findSeats.js';
 import {apiRequest} from "./module/apiRequest.js";
 
+console.log('entering ticketSelect script!');
+
 //Setup
 //Read showing id from url param
 let params = new URLSearchParams(document.location.search);
-let showingId = params.get('showing') ?? '1';
+let showingId = params.get('showingId');
 
 
 const BASE_URL = 'http://localhost:8080';
@@ -133,7 +135,7 @@ submitBtnEL.addEventListener('click', async () => {
     updateDebugOutput(reservation);
 
     //redirect to next page
-    window.location.href = `index.html?reservationId=${reservation.id}`;
+    window.location.href = `reservationConfirmation.html?reservationId=${reservation.id}`;
 });
 
 

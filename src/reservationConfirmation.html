@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cinema Seating PoC</title>
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/ticketConfirm.css" />
+</head>
+<body>
+  <div class="container">
+
+    <form id="checkout-form">
+
+      <h2>Customer Details</h2>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required />
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone" required />
+      </div>
+
+      <button type="submit" id="btn-submit">Confirm Reservation</button>
+
+    </form>
+
+    <div class="summary">
+
+      <h2>Order Overview</h2>
+
+      <div class="summary-item">
+        <span>Movie</span>
+        <strong id="showing-movie-name">Undefined title</strong>
+      </div>
+
+      <div class="summary-item">
+        <span>Date & Time</span>
+        <strong id="showing-date">Undefined date</strong>
+      </div>
+
+      <div class="summary-item">
+        <span>Theater</span>
+        <strong id="showing-theater">Undefined Theater</strong>
+      </div>
+
+      <div class="summary-item">
+        <span>Seats</span>
+        <strong id="reservation-seats">Unknown</strong>
+      </div>
+
+      <div class="summary-item total">
+        <span>Total Cost</span>
+        <span id="total-cost">Unknown</span>
+      </div>
+
+    </div>
+  </div>
+  <script type="module" src="js/ticketConfirm.js"></script>
+</body>
+</html>
