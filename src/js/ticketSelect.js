@@ -25,8 +25,20 @@ let ticketCount = 2;
 const theaterGridEl = document.getElementById('theater-grid');
 const ticketCounterEl = document.getElementById('ticket-count');
 const submitBtnEL = document.getElementById('btn-submit');
-const debugOutputEl = document.getElementById('json-output');
+const movieTitleEl = document.getElementById('movie-title');
+const movieTimeEl = document.getElementById('movie-time');
+const totalPriceEl = document.getElementById('total-price');
 
+function renderElements(showing) {
+
+    //set element text:
+    movieTitleEl.innerText = showing.movie.title;
+
+    let timeDate = new Date(showing.time);
+    movieTimeEl.innerText = timeDate.toLocaleString("DK", { dateStyle: "medium" });
+
+    totalPriceEl.innerText = `DKK ${showing.price * ticketCount},-`;
+}
 function renderTheater() {
 
     theaterGridEl.innerHTML = '';
@@ -81,6 +93,7 @@ function handleSeatSelection(rowIndex, seatIndex) {
         selection.seats = newBlock;
         selection.rowIndex = rowIndex;
         selection.seatIndex = seatIndex;
+        renderElements(showing);
         renderTheater();
         return true;
     } else {
@@ -175,6 +188,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         alert('We had trouble finding seats for you, showing may be fully booked');
     }
 
+    renderElements(showing);
     renderTheater();
 });
 

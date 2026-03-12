@@ -8,24 +8,61 @@
     <link rel="stylesheet" href="css/ticketSelect.css" />
 </head>
 <body>
+<div class="container">
+    <!-- Main Booking Area -->
+    <main class="booking-section">
+        <h2>Select Seats</h2>
 
-<div class="controls">
-    <span>Tickets:</span>
-    <button id="btn-minus">-</button>
-    <span id="ticket-count">2</span>
-    <button id="btn-plus">+</button>
-</div>
+        <div class="controls">
+            <span>Tickets:</span>
+            <button id="btn-minus" class="icon-btn">-</button>
+            <span id="ticket-count">2</span>
+            <button id="btn-plus" class="icon-btn">+</button>
+        </div>
 
-<!-- Theater Rendering -->
-<div class="theater-container">
-    <div class="screen">SCREEN</div>
-    <div id="theater-grid">
-        <!-- Rows injected via JS -->
-    </div>
-</div>
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-box available"></div>
+                <span>Available</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box selected"></div>
+                <span>Selected</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box occupied"></div>
+                <span>Occupied</span>
+            </div>
+        </div>
 
-<div>
-    <button id="btn-submit" class="submit-button">Næste</button>
+        <div class="theater-container">
+            <div class="screen">SCREEN</div>
+            <div id="theater-grid">
+                <!-- Rows injected via JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Sidebar -->
+    <aside class="summary">
+        <h2>Booking Summary</h2>
+
+        <div class="summary-item">
+            <span>Movie</span>
+            <strong id="movie-title">Undefined</strong>
+        </div>
+        <div class="summary-item">
+            <span>Showtime</span>
+            <strong id="movie-time">Undefined</strong>
+        </div>
+
+        <div class="summary-item total">
+            <span>Total Price</span>
+            <strong id="total-price">0.00 DKK</strong>
+        </div>
+
+        <button id="btn-submit">Næste</button>
+    </aside>
 </div>
 
 <script type="module" src="js/ticketSelect.js"></script>
