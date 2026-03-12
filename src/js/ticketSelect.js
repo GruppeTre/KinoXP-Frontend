@@ -81,7 +81,6 @@ function handleSeatSelection(rowIndex, seatIndex) {
         selection.seats = newBlock;
         selection.rowIndex = rowIndex;
         selection.seatIndex = seatIndex;
-        updateDebugOutput(selection.seats);
         renderTheater();
         return true;
     } else {
@@ -92,10 +91,6 @@ function handleSeatSelection(rowIndex, seatIndex) {
 
 function isSeatAvailable(seat) {
     return !seat.inoperable && !reservedSeats.some(target => target.id === seat.id);
-}
-
-function updateDebugOutput(object) {
-    debugOutputEl.value = JSON.stringify(object, null, 4);
 }
 
 async function fetchShowing(url) {
@@ -132,7 +127,6 @@ submitBtnEL.addEventListener('click', async () => {
     }
     const postEndpoint = BASE_URL + '/booking/reservation';
     const reservation = await apiRequest(postEndpoint, 'POST', reservationTemp);
-    updateDebugOutput(reservation);
 
     //redirect to next page
     window.location.href = `reservationConfirmation.html?reservationId=${reservation.id}`;
@@ -180,7 +174,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         ticketCounterEl.innerText = ticketCount;
         alert('We had trouble finding seats for you, showing may be fully booked');
     }
-    updateDebugOutput(selection?.seats);
+
     renderTheater();
 });
 
