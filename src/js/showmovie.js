@@ -105,7 +105,7 @@ function showShowings(){
             const dateHeader = document.createElement("h3");
             dateHeader.textContent = date;
             dateColumn.appendChild(dateHeader);
-            dateColumn.classList.add("date-column"); //skal bruges senere til styling, så vi kan sætte datoerne horisontalt
+            dateColumn.classList.add("date-column");
             showingList.appendChild(dateColumn);
 
             lastDate = date;
@@ -128,7 +128,7 @@ function showShowings(){
 function actionChooseShowing(showingId) {
         console.log("du klikkede på showing id" + showingId);
 
-        //windows.location.href "siden der skal linkes" html?showingId=" + showingId;
+        //windows.location.href "siden der skal linkes" html?showingId=" + showingId; //link til at vælge sæder når man trykker på et tidspunkt
 
 }
 fetchMovieById();
