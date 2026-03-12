@@ -90,16 +90,24 @@ function showShowings(){
     showings.sort(function(a,b){
         return new Date(a.time) - new Date(b.time);
     })
+    console.log("showing efter sortering", showings)
 
     showingList.classList.add("showing-grid");
 
     showings.forEach(function(showing){
 
+        console.log("behandling af showing", showing)
+
         const dateTime = showing.time.split("T");
         const date = dateTime[0];
         const time = dateTime[1].substring(0, 5);
 
+        console.log("dato", date, "tid", time)
+
         if(date !== lastDate){
+
+            console.log("ny dato fundet", date);
+
             dateColumn = document.createElement("div");
 
             const dateHeader = document.createElement("h3");
@@ -114,6 +122,8 @@ function showShowings(){
         console.log("viser showing", showing);
 
         const showingButton = document.createElement("button");
+
+        console.log("opretter knapper med tid", time)
 
         showingButton.textContent = time;
 
