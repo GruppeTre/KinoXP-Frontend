@@ -31,7 +31,7 @@ function renderShowings(showings, container) {
         const timeString = showingDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
         div.innerHTML = `
-        <a href="reservation.html?showingId=${showing.id}">
+        <a href="ticketSelect.html?showingId=${showing.id}">
             ${timeString}
         </a>
     `;
@@ -62,7 +62,7 @@ async function renderMoviesAndShowings(selectedDate = new Date()) {
             article.innerHTML = `
                 <div class="movie-container">
                     <div class="movie-image">
-                        <a href="http://localhost:8080/movie/${movie.id}" target="_blank">
+                        <a href="showmovie.html?id=${movie.id}" target="_blank">
                             <img src="${movie.imgHref}" alt="${movie.title}">
                         </a>
                     </div>
