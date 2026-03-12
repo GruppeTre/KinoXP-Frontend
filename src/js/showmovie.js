@@ -128,19 +128,12 @@ function showShowings(){
         showingButton.textContent = time;
 
         showingButton.addEventListener("click", function(){
-            actionChooseShowing(showing.id);
-
+            window.location.href = `ticketSelect.html?showingId=${showing.id}`;
         })
         dateColumn.appendChild(showingButton);
     })
 }
 
-function actionChooseShowing(showingId) {
-        console.log("du klikkede på showing id" + showingId);
-
-        //windows.location.href "siden der skal linkes" html?showingId=" + showingId; //link til at vælge sæder når man trykker på et tidspunkt
-
-}
 fetchMovieById();
 
 
