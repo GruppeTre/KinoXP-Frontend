@@ -24,7 +24,17 @@ function renderReservationDetails(reservation) {
     movieTitleEl.innerText = reservation.showing.movie.title;
 
     let timeDate = new Date(reservation.showing.time);
-    reservationDateEl.innerText = timeDate.toLocaleString("DK", { dateStyle: "medium" });
+
+    const options = {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+    };
+
+    reservationDateEl.innerText = timeDate.toLocaleString("DK", options);
 
     showingTheaterNameEl.innerText = reservation.showing.theater.name;
 

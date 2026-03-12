@@ -35,7 +35,17 @@ function renderElements(showing) {
     movieTitleEl.innerText = showing.movie.title;
 
     let timeDate = new Date(showing.time);
-    movieTimeEl.innerText = timeDate.toLocaleString("DK", { dateStyle: "medium" });
+
+    const options = {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+    };
+
+    movieTimeEl.innerText = timeDate.toLocaleString("DK", options);
 
     totalPriceEl.innerText = `DKK ${showing.price * ticketCount},-`;
 }
@@ -131,9 +141,9 @@ submitBtnEL.addEventListener('click', async () => {
 
     let reservationTemp = {
         createdAt: new Date(),
-        email: "notYetDefined",
-        name: "Jens Erik",
-        phoneNumber: "33333333",
+        email: "Not Yet Defined",
+        name: "Not Yet Defined",
+        phoneNumber: "00000000",
         seats: selection.seats,
         showing: showing,
         status: 'PENDING'
