@@ -7,6 +7,7 @@ export async function showEditForm(showing = {}, container) {
     const theaters = await fetchTheaters();
 
     const form = document.createElement("form");
+    form.classList.add("showing-form-container");
 
     form.innerHTML = `
         <h3>${showing.id ? "Rediger visning" : "Opret ny visning"}</h3>
