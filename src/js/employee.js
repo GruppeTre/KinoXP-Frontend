@@ -23,6 +23,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
             reservation.movieTitle = showing.movie.title;
             reservation.showingTime = showing.time;
+
+
         }
     }
 
@@ -47,13 +49,26 @@ document.addEventListener("DOMContentLoaded", function() {
         reservations.forEach(function (reservation) {
             const div = document.createElement("div");
 
+            let timeDate = new Date(reservation.showingTime);
+
+            const options = {
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false,
+            };
+
+            let formattedDate = timeDate.toLocaleString("da-DK", options);
+
             div.innerHTML = `
             <p>Navn: ${reservation.name}</p>
             <p>E-mail: ${reservation.email}</p>
             <p>Telefon: ${reservation.phone_number}</p>
             <p>Status: ${reservation.status}</p>
             <p>Film: ${reservation.movieTitle}</p>
-            <p>Dato: ${reservation.showingTime}</p>
+            <p>Dato: ${formattedDate}</p>
             <button class="paidButton" data-id="${reservation.id}">Betalt</button>
             <button class="cancelledButton" data-id="${reservation.id}">Afbestilt</button>
         
@@ -64,6 +79,9 @@ document.addEventListener("DOMContentLoaded", function() {
             const cancelledButton = div.querySelector(".cancelledButton");
 
             paidButton.addEventListener("click", async function(){
+                const confirmed = confirm("Er du sikker på at du vil afbestille reservationen?")
+                if (!confirmed) return;
+
                 await updateReservationStatus(reservation.id, "PAID");
                 await fetchReservations();
                 searchReservations()
@@ -84,6 +102,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function searchReservations() {
         const searchValue = searchEmail.value.toLowerCase()
+
+        console.log("søger efter" + searchValue)
 
         const filterReservations = allReservations.filter(function (reservation) {
             return reservation.email.toLowerCase().includes(searchValue);
