@@ -63,6 +63,22 @@ document.addEventListener("DOMContentLoaded", function() {
             const paidButton = div.querySelector(".paidButton");
             const cancelledButton = div.querySelector(".cancelledButton");
 
+            paidButton.addEventListener("click", async function(){
+                await updateReservationStatus(reservation.id, "PAID");
+                await fetchReservations();
+                searchReservations()
+            })
+
+            cancelledButton.addEventListener("click", async function(){
+                const confirmed = confirm("Er du sikker på at du vil afbestille reservationen?")
+                if (!confirmed) return;
+
+                await updateReservationStatus(reservation.id, "CANCELLED");
+                await fetchReservations();
+                searchReservations()
+
+            })
+
         })
     }
 
