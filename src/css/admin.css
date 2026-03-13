@@ -1,7 +1,7 @@
 .movies,
 .showings {
     display: flex;
-    align-items: center;
+    align-items: flex-start; /* tidligere center */
     gap: 20px;
     background-color: var(--secondary-background-color);
     padding: 10px;
@@ -10,12 +10,12 @@
 }
 
 .title {
-    width: 250px;
+    min-width: 200px;
     font-weight: bold;
 }
 
 .time {
-    width: 180px;
+    min-width: 120px;
 }
 
 .actions {
