@@ -1,5 +1,6 @@
 import { apiRequest } from "./module/apiRequest.js";
 import { showEditForm } from "./showingForm.js";
+import { renderSeatEditor } from "./seatEditor.js";
 
 const links = document.querySelectorAll("nav a");
 const container = document.getElementById("container");
@@ -48,7 +49,6 @@ function renderer(item, type) {
         case "theater":
             renderTheaters(item);
             break;
-
     }
 }
 
@@ -159,11 +159,7 @@ function renderShowings(showings) {
 }
 
 function renderTheaters(theaters) {
-    container.innerHTML = "";
-    theaters.forEach(theater => {
-        const div = document.createElement("div");
-        div.textContent = theater.name;
-        container.appendChild(div);
-    });
+    container.innerHTML = '';
+    container.appendChild(renderSeatEditor(theaters));
 }
 
