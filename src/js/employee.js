@@ -17,6 +17,19 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log("fetchReservations er kaldt");
 
         allReservations = await apiRequest("http://localhost:8080/booking/reservation/active");
+
+        for(let reservation of allReservations) {
+            const showing = await apiRequest(`http://localhost:8080/booking/showing/${reservation.showing_id}`);
+
+            reservation.movieTitle = showing.movie.title;
+            reservation.showingTime = showing.time;
+        }
+    }
+
+    async function updateReservationStatus(id, status) {
+        await fetch(`http://localhost:8080/booking/reservation/${id}/status?status=${status}`, {
+            method: "PUT"
+        });
     }
 
 
@@ -39,10 +52,16 @@ document.addEventListener("DOMContentLoaded", function() {
             <p>E-mail: ${reservation.email}</p>
             <p>Telefon: ${reservation.phone_number}</p>
             <p>Status: ${reservation.status}</p>
-            <p>Showing ID: ${reservation.showing_id}</p>
+            <p>Film: ${reservation.movieTitle}</p>
+            <p>Dato: ${reservation.showingTime}</p>
+            <button class="paidButton" data-id="${reservation.id}">Betalt</button>
+            <button class="cancelledButton" data-id="${reservation.id}">Afbestilt</button>
         
             `;
             reservationsList.appendChild(div);
+
+            const paidButton = div.querySelector(".paidButton");
+            const cancelledButton = div.querySelector(".cancelledButton");
 
         })
     }
