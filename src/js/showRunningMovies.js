@@ -44,6 +44,7 @@ async function renderMoviesAndShowings(selectedDate = new Date()) {
         moviesSection.innerHTML = "";
 
         const movies = await apiRequest("http://localhost:8080/movie/running");
+        console.log(`fetched movies: ${JSON.stringify(movies)}`);
         const showings = await apiRequest("http://localhost:8080/booking/showing");
 
         const moviesWithShowings = movies.filter(movie => {
@@ -121,4 +122,5 @@ function createDaySelector(showings, movies, selectedDate) {
     }
 }
 
-document.addEventListener("DOMContentLoaded", () => renderMoviesAndShowings());
+
+document.addEventListener("DOMContentLoaded", async() => await renderMoviesAndShowings());
