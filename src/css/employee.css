@@ -1,145 +1,102 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #f4f6f8;
-    color: #222;
+    background: linear-gradient(to right, #0f1115, #14161c);
+    color: white;
 }
 
 .page-header {
-    background-color: #1f2a44;
     padding: 20px 40px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    background-color: transparent;
 }
 
 .logo-link {
     color: white;
     text-decoration: none;
-    font-size: 1.8rem;
+    font-size: 28px;
     font-weight: bold;
 }
 
 .employee-page {
-    display: flex;
-    justify-content: center;
-    padding: 40px 20px;
-}
-
-.reservation-section {
-    width: 100%;
-    max-width: 900px;
-    background: white;
-    padding: 30px;
-    border-radius: 14px;
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
-}
-
-.reservation-section h2 {
-    margin-top: 0;
-    margin-bottom: 25px;
-    font-size: 1.8rem;
-    color: #1f2a44;
+    width: 85%;
+    margin: 30px auto;
 }
 
 .search-box {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    background-color: #2f404d;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
     margin-bottom: 30px;
 }
 
 .search-box label {
+    display: block;
+    margin-bottom: 10px;
     font-weight: bold;
-    color: #333;
+    color: #ff7f50;
 }
 
 .search-box input {
+    width: 100%;
     padding: 12px;
-    border: 1px solid #cfd6de;
-    border-radius: 8px;
-    font-size: 1rem;
-}
-
-.search-box input:focus {
-    outline: none;
-    border-color: #1f2a44;
-    box-shadow: 0 0 0 3px rgba(31, 42, 68, 0.12);
+    border-radius: 6px;
+    border: none;
+    margin-bottom: 15px;
+    font-size: 16px;
+    box-sizing: border-box;
 }
 
 .search-box button {
-    width: 140px;
-    padding: 12px;
+    background-color: #f4a259;
     border: none;
-    border-radius: 8px;
-    background-color: #1f2a44;
-    color: white;
-    font-size: 1rem;
-    font-weight: bold;
+    padding: 10px 18px;
+    border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    font-weight: bold;
 }
 
 .search-box button:hover {
-    background-color: #162038;
+    opacity: 0.9;
 }
 
 .reservations-list {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px;
 }
 
-.reservation-card {
-    background-color: #f9fafb;
-    border: 1px solid #e2e8f0;
-    border-left: 6px solid #1f2a44;
-    border-radius: 12px;
+.reservations-list div {
+    background-color: #2f404d;
     padding: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-}
-
-.reservation-card p {
-    margin: 8px 0;
-    line-height: 1.5;
-}
-
-.reservation-card strong {
-    color: #1f2a44;
-}
-
-.reservation-actions {
-    display: flex;
-    gap: 12px;
-    margin-top: 16px;
-}
-
-.reservation-actions button {
-    padding: 10px 16px;
-    border: none;
     border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: transform 0.15s ease, opacity 0.2s ease;
 }
 
-.reservation-actions button:hover {
-    transform: translateY(-1px);
-    opacity: 0.95;
+.reservations-list p {
+    margin: 6px 0;
+}
+
+.paidButton,
+.cancelledButton {
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-right: 10px;
+    margin-top: 10px;
+    font-weight: bold;
 }
 
 .paidButton {
-    background-color: #1f7a3d;
+    background-color: #f4a259;
+}
+
+.cancelledButton {
+    background-color: #d66b4d;
     color: white;
 }
 
-.cancelButton {
-    background-color: #b42318;
-    color: white;
-}
-
-.empty-message {
-    background-color: #fff4f4;
-    color: #b42318;
-    padding: 14px;
-    border-radius: 8px;
-    border: 1px solid #f1b0b7;
+.paidButton:hover,
+.cancelledButton:hover {
+    opacity: 0.9;
 }
