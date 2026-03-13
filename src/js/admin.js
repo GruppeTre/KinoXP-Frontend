@@ -148,15 +148,12 @@ function renderShowings(showings) {
             if (confirm(`Er du sikker på, du vil slette visning ${showing.id}?`)) {
                 try {
                     await apiRequest(`http://localhost:8080/booking/showing/${showing.id}`, "DELETE");
+
+                    showingArticle.remove();
                     alert("Visning slettet!");
                 } catch (error) {
-                    // tjek status direkte, hvis apiRequest returnerer den
-                    if (error.status === 409) {
-                        alert("Kan ikke slette visning, der har reserveringer!");
-                    } else {
-                        console.error(error);
-                        alert("Noget gik galt!");
-                    }
+                    console.error(error);
+                    alert("Noget gik galt!");
                 }
             }
         });
