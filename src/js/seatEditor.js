@@ -64,7 +64,7 @@ export function renderSeatEditor(theaters) {
     submitBtn.addEventListener("click", () => {
         console.log(`marking seat as out of order: ${JSON.stringify(selectedSeat, null, 4)}`);
 
-        // Execute PUT request here utilizing the selectedSeat object
+        //TODO: Execute PUT request here, sending the selectedSeat object to endpoint /theater/seat/{id} (does not currently exist)
     });
 
     return containerEl;
