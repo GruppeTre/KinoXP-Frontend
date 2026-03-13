@@ -125,7 +125,10 @@ function renderShowings(showings) {
 
         const time = document.createElement("div");
         time.classList.add("time");
-        time.textContent = new Date(showing.time).toLocaleString();
+        time.textContent = new Date(showing.time).toLocaleString("da-DK", {
+            dateStyle: "short",
+            timeStyle: "short"
+        });
 
         const actions = document.createElement("div");
         actions.classList.add("actions");
@@ -147,7 +150,8 @@ function renderShowings(showings) {
                     await apiRequest(`http://localhost:8080/booking/showing/${showing.id}`, "DELETE");
                     alert("Visning slettet!");
                 } catch (error) {
-                    if (error.message.includes("409")) {
+                    // tjek status direkte, hvis apiRequest returnerer den
+                    if (error.status === 409) {
                         alert("Kan ikke slette visning, der har reserveringer!");
                     } else {
                         console.error(error);
