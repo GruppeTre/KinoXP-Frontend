@@ -260,3 +260,29 @@ h3 {
     background-color: #999;
     color: white;
 }
+
+header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color: var(--primary-background-color);
+    color: var(--text-color);
+}
+
+/* Admin-link skubbes til højre */
+.admin-link {
+    margin-left: auto;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    background-color: var(--secondary-accent);
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.admin-link:hover {
+    background-color: var(--primary-accent);
+    color: white;
+}
