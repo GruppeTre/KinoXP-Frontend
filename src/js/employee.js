@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
         allReservations = await apiRequest("http://localhost:8080/booking/reservation/active");
 
         for(let reservation of allReservations) {
-            const showing = await apiRequest(`http://localhost:8080/booking/showing/${reservation.showing_id}`);
+            const showing = await apiRequest(`http://localhost:8080/booking/showing/${reservation.showing.id}`);
 
             reservation.movieTitle = showing.movie.title;
             reservation.showingTime = showing.time;
@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function() {
             })
 
             cancelledButton.addEventListener("click", async function(){
-                const confirmed = confirm("Er du sikker på at du vil afbestille reservationen?")
+                const confirmed = confirm("Er du sikker på at du markere reservationen som betalt?")
                 if (!confirmed) return;
 
                 await updateReservationStatus(reservation.id, "CANCELLED");

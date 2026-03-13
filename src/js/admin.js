@@ -1,4 +1,5 @@
 import { apiRequest } from "./module/apiRequest.js";
+import { showEditForm } from "./showingForm.js";
 
 const links = document.querySelectorAll("nav a");
 const container = document.getElementById("container");
@@ -90,36 +91,71 @@ function renderMovies(movies) {
 }
 
 function renderShowings(showings) {
+    console.log("Fetched showings:", showings);
     container.innerHTML = "";
-    showings.forEach(showing => {
-        const showingArticle = document.createElement("article");
-            showingArticle.classList.add("showings");
-        const title = document.createElement("div");
-            title.classList.add("title");
-        const time = document.createElement("div");
-            time.classList.add("time");
-        const actions = document.createElement("div");
-            actions.classList.add("actions");
-        const editButton = document.createElement("button");
-            editButton.textContent = "Edit";
-            editButton.addEventListener("click", () => {
-                // Implement edit functionality here
-                console.log(`Edit showing with ID: ${showing.id}`);
-            });
-        const deleteButton = document.createElement("button");
-            deleteButton.textContent = "Delete";
-            deleteButton.addEventListener("click", () => {
-                // Implement delete functionality here
-                console.log(`Delete showing with ID: ${showing.id}`);
-            });
 
-        title.textContent = movie.title;
-        
+    const createButton = document.createElement("button");
+    createButton.textContent = "Opret visning";
+
+    const formContainer = document.createElement("div");
+
+    createButton.addEventListener("click", () => {
+        formContainer.innerHTML = "";
+        showEditForm({}, formContainer);
+    });
+
+    container.appendChild(createButton);
+
+    showings.forEach(showing => {
+
+        const showingArticle = document.createElement("article");
+        showingArticle.classList.add("showings");
+
+        const title = document.createElement("div");
+        title.classList.add("title");
+        title.textContent = showing.movie.title;
+
+        const time = document.createElement("div");
+        time.classList.add("time");
+        time.textContent = new Date(showing.time).toLocaleString();
+
+        const actions = document.createElement("div");
+        actions.classList.add("actions");
+
+        const editButton = document.createElement("button");
+        editButton.textContent = "Edit";
+
+        editButton.addEventListener("click", () => {
+            formContainer.innerHTML = "";
+            showEditForm(showing, formContainer);
+        });
+
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+
+        deleteButton.addEventListener("click", async () => {
+            if (confirm(`Er du sikker på, du vil slette visning ${showing.id}?`)) {
+                try {
+                    await apiRequest(`http://localhost:8080/booking/showing/${showing.id}`, "DELETE");
+                    alert("Visning slettet!");
+                } catch (error) {
+                    if (error.message.includes("409")) {
+                        alert("Kan ikke slette visning, der har reserveringer!");
+                    } else {
+                        console.error(error);
+                        alert("Noget gik galt!");
+                    }
+                }
+            }
+        });
+
         actions.append(editButton, deleteButton);
         showingArticle.append(title, time, actions);
 
         container.appendChild(showingArticle);
     });
+
+    container.appendChild(formContainer);
 }
 
 function renderTheaters(theaters) {
@@ -130,3 +166,4 @@ function renderTheaters(theaters) {
         container.appendChild(div);
     });
 }
+
