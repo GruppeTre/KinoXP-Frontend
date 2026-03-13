@@ -118,8 +118,5 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-//siden skal indeholde forestillingsinfo, hvilken sal, tidspunkt
-//derefter skal der være en knap så man kan opdatere status
 
-//Vi skal også have em knap til at frigive alle billetter hvis det er tæt på forestillingsstart og der er mange i kø som gerne vil have billet.
 
