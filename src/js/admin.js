@@ -94,6 +94,16 @@ function renderShowings(showings) {
     console.log("Fetched showings:", showings);
     container.innerHTML = "";
 
+    showings.sort((a, b) => {
+        const titleCompare = a.movie.title.localeCompare(b.movie.title);
+
+        if (titleCompare !== 0) {
+            return titleCompare;
+        }
+
+        return new Date(a.time) - new Date(b.time);
+    });
+
     const createButton = document.createElement("button");
     createButton.textContent = "Opret visning";
 
@@ -103,8 +113,6 @@ function renderShowings(showings) {
         formContainer.innerHTML = "";
         showEditForm({}, formContainer);
     });
-
-    container.appendChild(createButton);
 
     showings.forEach(showing => {
 
@@ -117,7 +125,10 @@ function renderShowings(showings) {
 
         const time = document.createElement("div");
         time.classList.add("time");
-        time.textContent = new Date(showing.time).toLocaleString();
+        time.textContent = new Date(showing.time).toLocaleString("da-DK", {
+            dateStyle: "short",
+            timeStyle: "short"
+        });
 
         const actions = document.createElement("div");
         actions.classList.add("actions");
@@ -137,14 +148,12 @@ function renderShowings(showings) {
             if (confirm(`Er du sikker på, du vil slette visning ${showing.id}?`)) {
                 try {
                     await apiRequest(`http://localhost:8080/booking/showing/${showing.id}`, "DELETE");
+
+                    showingArticle.remove();
                     alert("Visning slettet!");
                 } catch (error) {
-                    if (error.message.includes("409")) {
-                        alert("Kan ikke slette visning, der har reserveringer!");
-                    } else {
-                        console.error(error);
-                        alert("Noget gik galt!");
-                    }
+                    console.error(error);
+                    alert("Noget gik galt!");
                 }
             }
         });
@@ -155,7 +164,9 @@ function renderShowings(showings) {
         container.appendChild(showingArticle);
     });
 
+    container.appendChild(createButton);
     container.appendChild(formContainer);
+
 }
 
 function renderTheaters(theaters) {
