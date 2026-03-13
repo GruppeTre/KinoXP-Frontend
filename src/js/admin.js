@@ -94,6 +94,16 @@ function renderShowings(showings) {
     console.log("Fetched showings:", showings);
     container.innerHTML = "";
 
+    showings.sort((a, b) => {
+        const titleCompare = a.movie.title.localeCompare(b.movie.title);
+
+        if (titleCompare !== 0) {
+            return titleCompare;
+        }
+
+        return new Date(a.time) - new Date(b.time);
+    });
+
     const createButton = document.createElement("button");
     createButton.textContent = "Opret visning";
 
@@ -103,8 +113,6 @@ function renderShowings(showings) {
         formContainer.innerHTML = "";
         showEditForm({}, formContainer);
     });
-
-    container.appendChild(createButton);
 
     showings.forEach(showing => {
 
@@ -155,7 +163,9 @@ function renderShowings(showings) {
         container.appendChild(showingArticle);
     });
 
+    container.appendChild(createButton);
     container.appendChild(formContainer);
+
 }
 
 function renderTheaters(theaters) {
