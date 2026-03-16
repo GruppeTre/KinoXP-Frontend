@@ -49,16 +49,7 @@ function renderer(item, type) {
             renderTheaters(item);
             break;
 
-        case "reservation":
-            console.log("reservation clicked");
-            redirectToEmployee()
-            break;
     }
-}
-
-function redirectToEmployee() {
-    console.log("redirectToEmployee");
-    window.location.href = "employee.html";
 }
 
 function rendererForms(item, id){
